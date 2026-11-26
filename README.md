@@ -77,11 +77,14 @@ data/processed/
 └── ablation_validation.csv
 ```
 
-Los archivos `train`, `validation` y `test` contienen las variables originales,
-las variables derivadas, las etiquetas y la información temporal de cada
-registro. El conjunto de prueba se genera y se guarda para una evaluación
+Los archivos `train`, `validation` y `test` contienen únicamente la telemetría
+original (`machineID`, `datetime`, `volt`, `rotate`, `pressure`, `vibration`) y
+las etiquetas de falla. No incluyen variables derivadas como las ventanas de
+3h/24h. El conjunto de prueba se genera y se guarda para una evaluación
 posterior; no se utiliza para entrenar modelos ni para seleccionar umbrales en
-este notebook.
+este notebook. Week 2 carga los splits de entrenamiento y validación en
+cualquiera de los formatos indicados a continuación y une los metadatos de
+máquina por separado.
 
 Si `pyarrow` no está disponible, los tres conjuntos se guardan como:
 

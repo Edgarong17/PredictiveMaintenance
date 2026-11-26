@@ -1,0 +1,23 @@
+{
+ "window_L": 24,
+ "channels": [
+  "volt",
+  "rotate",
+  "pressure",
+  "vibration",
+  "error1_now",
+  "error2_now",
+  "error3_now",
+  "error4_now",
+  "error5_now",
+  "log_hours_since_comp1",
+  "log_hours_since_comp2",
+  "log_hours_since_comp3",
+  "log_hours_since_comp4"
+ ],
+ "static": [
+  "model",
+  "age"
+ ],
+ "horizon_hours": 24
+}
