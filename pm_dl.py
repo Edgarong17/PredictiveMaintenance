@@ -209,7 +209,38 @@ class CNNLSTMNet(nn.Module):
         return self.heads(torch.cat([out[:, -1], self.static(model, age)], dim=1))
 
 
+class TransformerNet(nn.Module):
+    """Week 3 (3.1a): Transformer encoder over the hourly window. A 'machine token' built from the static
+    inputs (model embedding + age) is prepended to the sequence (like a CLS token); sinusoidal positional
+    encoding; the token's final state, concatenated with the static vector, feeds the same two heads."""
+
+    def __init__(self, n_ch, L, d=32, n_heads=4, layers=2, ff=64, dropout=0.1):
+        super().__init__()
+        self.inp = nn.Linear(n_ch, d)
+        self.static = StaticEncoder()
+        self.machine_token = nn.Linear(self.static.out_dim, d)
+        pos = torch.arange(L + 1, dtype=torch.float32)[:, None]
+        div = torch.exp(torch.arange(0, d, 2, dtype=torch.float32) * (-math.log(10000.0) / d))
+        pe = torch.zeros(L + 1, d)
+        pe[:, 0::2] = torch.sin(pos * div)
+        pe[:, 1::2] = torch.cos(pos * div)
+        self.register_buffer('pe', pe[None])
+        layer = nn.TransformerEncoderLayer(d, n_heads, ff, dropout, batch_first=True, norm_first=True)
+        self.encoder = nn.TransformerEncoder(layer, layers, enable_nested_tensor=False)
+        self.norm = nn.LayerNorm(d)
+        self.heads = Heads(d + self.static.out_dim, dropout=dropout)
+
+    def forward(self, x, model, age):
+        s = self.static(model, age)
+        h = torch.cat([self.machine_token(s)[:, None], self.inp(x)], dim=1) + self.pe[:, :x.shape[1] + 1]
+        h = self.norm(self.encoder(h))
+        return self.heads(torch.cat([h[:, 0], s], dim=1))
+
+
 def make_model(arch, L, n_ch=len(CHANNELS), **kw):
+    if arch == 'Transformer':
+        return TransformerNet(n_ch, L, d=kw.get('d', 32), n_heads=kw.get('n_heads', 4), layers=kw.get('layers', 2),
+                              ff=kw.get('ff', 64), dropout=kw.get('dropout', 0.1))
     if arch == 'GRU':
         return RNNNet(n_ch, 'gru', hidden=kw.get('hidden', 64), layers=kw.get('layers', 1), dropout=kw.get('dropout', 0.2))
     if arch == 'LSTM':

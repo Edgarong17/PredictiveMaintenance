@@ -1,0 +1,28 @@
+{
+ "final_model": "TCN (semana 2)",
+ "transformer_kept": "Transformer_d32",
+ "temperature": 1.1542251366756358,
+ "threshold": 0.48000000000000004,
+ "sustain_h": 3,
+ "cooldown_h": 24,
+ "calendar_T_h": {
+  "comp1": 1056,
+  "comp2": 1416,
+  "comp3": 2328,
+  "comp4": 1656
+ },
+ "costs": {
+  "failure": 15000,
+  "hit": 3000,
+  "false_alarm": 600
+ },
+ "ensemble_seeds": [
+  42,
+  43,
+  44,
+  45,
+  46
+ ],
+ "decided_on": "train + validation only",
+ "written_at": "2026-11-26T17:40:35.399033"
+}

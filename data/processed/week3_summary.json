@@ -1,0 +1,69 @@
+{
+ "final_model": "TCN (semana 2)",
+ "temperature": 1.1542251366756358,
+ "threshold": 0.48000000000000004,
+ "calendar_T_days": {
+  "comp1": 44.0,
+  "comp2": 59.0,
+  "comp3": 97.0,
+  "comp4": 69.0
+ },
+ "val": {
+  "threshold": 0.48000000000000004,
+  "alerts": 115,
+  "false_alarms": 3,
+  "failures": 118,
+  "failures_avoided": 118,
+  "failures_missed": 0,
+  "cost": 355800,
+  "lead_mean_h": 21.43220338983051,
+  "days": 60.0
+ },
+ "test": {
+  "threshold": 0.48000000000000004,
+  "alerts": 126,
+  "false_alarms": 12,
+  "failures": 121,
+  "failures_avoided": 121,
+  "failures_missed": 0,
+  "cost": 370200,
+  "lead_mean_h": 21.016528925619834,
+  "days": 61.0
+ },
+ "test_component_correct_%": 100.0,
+ "test_bootstrap_ci": {
+  "Operar hasta la falla": {
+   "costo anual (M)": 10.841,
+   "IC 95 % inf.": 9.245,
+   "IC 95 % sup.": 12.476
+  },
+  "Reemplazo por calendario": {
+   "costo anual (M)": 8.356,
+   "IC 95 % inf.": 7.216,
+   "IC 95 % sup.": 9.568
+  },
+  "Alertas del modelo": {
+   "costo anual (M)": 2.211,
+   "IC 95 % inf.": 1.881,
+   "IC 95 % sup.": 2.542
+  },
+  "ahorro modelo vs operar hasta la falla": {
+   "costo anual (M)": 8.63,
+   "IC 95 % inf.": 7.335,
+   "IC 95 % sup.": 9.934
+  },
+  "ahorro modelo vs calendario": {
+   "costo anual (M)": 6.145,
+   "IC 95 % inf.": 5.188,
+   "IC 95 % sup.": 7.152
+  }
+ },
+ "minutes_trained": {
+  "Transformer_d32": 2.2758607387542726,
+  "Transformer_d64": 3.991890076796214,
+  "TCN_seed43": 3.330602991580963,
+  "TCN_seed44": 1.9886133790016174,
+  "TCN_seed45": 3.089937750498454,
+  "TCN_seed46": 3.5218499541282653
+ }
+}
